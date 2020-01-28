@@ -11,6 +11,7 @@ namespace ChessGame
             Console.WriteLine(" --- --- --- --- --- --- --- ---");
             Console.WriteLine(" ---  X   A   D   R   E   Z  ---");
             Console.WriteLine(" --- --- --- --- --- --- --- ---");
+            Console.WriteLine("\n --- --- --- --- --- --- --- ---");
             for (int i = 0; i < board.Lines; i++)
             {
                 Console.Write("| ");
@@ -23,7 +24,7 @@ namespace ChessGame
                     }
                     else
                     {
-                        Console.Write(board.Piece(i, j) + " ");
+                        Console.Write(board.Piece(i, j) + " | ");
                     }
                     
                     
