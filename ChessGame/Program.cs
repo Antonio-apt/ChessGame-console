@@ -10,13 +10,12 @@ namespace ChessGame
         {
             try
             {
-                Board Board = new Board(8, 8);
+                Board board = new Board(8, 8);
 
-                Board.PutPiece(new Rook(Color.Black, Board), new Position(0, 0));
-                Board.PutPiece(new Pawn(Color.Black, Board), new Position(9, 0));
-                Board.PutPiece(new Queen(Color.Black, Board), new Position(5, 5));
+                board.PutPiece(new Queen(Color.Black, board), new Position(0,0));
 
-                View.ViewBoard(Board);
+                View.ViewBoard(board);
+                
             }catch(BoardException e)
             {
                 Console.WriteLine(e.Message);
