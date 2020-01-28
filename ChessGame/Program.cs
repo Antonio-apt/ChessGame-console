@@ -7,17 +7,9 @@ namespace ChessGame
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine("-------------------------------");
+            Board Board = new Board(8,8);
+
+            View.ViewBoard(Board);
         }
     }
 }
