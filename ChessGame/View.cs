@@ -1,5 +1,6 @@
 ﻿using System;
 using board;
+using ChessGame.Chess;
 
 
 namespace ChessGame
@@ -40,6 +41,16 @@ namespace ChessGame
 
 
         }
+
+        public static ChessPosition ReadChessPosition()
+        {
+            string position = Console.ReadLine();
+            char column = position[0];
+            int line = int.Parse(position[1] + "");
+
+            return new ChessPosition(column, line);
+        }
+
         public static void PrintPiece(Piece piece)
         {
             if(piece.Color == Color.White)

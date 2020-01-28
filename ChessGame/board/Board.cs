@@ -44,6 +44,19 @@ namespace board
             p.Position = after;
         }
 
+        public Piece RemovePiece(Position after)
+        {
+            if (Piece(after) == null)
+            {
+                return null;
+            }
+            Piece aux = Piece(after);
+            aux.Position = null;
+            Pieces[after.Line, after.Column] = null;
+            return aux;
+
+        } 
+
         
 
         public bool ValidPosition(Position after)

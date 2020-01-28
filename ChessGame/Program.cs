@@ -10,13 +10,25 @@ namespace ChessGame
         {
             try
             {
-                Board board = new Board(8, 8);
+                ChessRound chessRound = new ChessRound();
 
-                board.PutPiece(new Queen(Color.Black, board), new Position(0,0));
+                while (!chessRound.finished)
+                {
+                    Console.Clear();
+                    View.ViewBoard(chessRound.board);
 
-                View.ViewBoard(board);
-                
-            }catch(BoardException e)
+                    Console.Write("Peça de origem: ");
+                    Position origin = View.ReadChessPosition().ToPosition();
+
+                    Console.Write("Peça de origem: ");
+                    Position destiny = View.ReadChessPosition().ToPosition();
+
+                    chessRound.ExecuteMove(origin, destiny);
+                }
+
+
+            }
+            catch(BoardException e)
             {
                 Console.WriteLine(e.Message);
             }
