@@ -1,34 +1,63 @@
 ﻿using System;
 using board;
 using ChessGame.Chess;
+using System.Collections.Generic;
 
 
 namespace ChessGame
 {
     class View
     {
-        public static void ViewBoard(Board board)
+
+        public static void ViewGame(ChessRound chessRound)
+        {
+            ViewBoard(chessRound.board);
+            PrintCapturedPieces(chessRound);
+            
+            Console.WriteLine($" Turno: {chessRound.round}");
+            Console.WriteLine($" Turno de : {chessRound.player}");
+        }
+
+        public static void PrintCapturedPieces(ChessRound round)
+        {
+            Console.WriteLine(" -------------------------------");
+            Console.WriteLine(" Peças capturadas");
+            Console.Write(" Brancas: ");
+            PrintSet(round.CapturedPieces(Color.White));
+            Console.Write("\n Pretas: ");
+            PrintSet(round.CapturedPieces(Color.Black));
+            Console.WriteLine(" \n -------------------------------");
+        }
+
+        public static void PrintSet(HashSet<Piece> set)
+        {
+            Console.Write("[ ");
+            foreach(Piece x in set)
+            {
+                Console.Write(x +", ");
+            }
+            Console.Write("] ");
+        }
+
+        private static void ChessTitle()
         {
             Console.WriteLine("    --- --- --- --- --- --- --- ---");
             Console.WriteLine("    ---  X   A   D   R   E   Z  ---");
             Console.WriteLine("    --- --- --- --- --- --- --- ---");
             Console.WriteLine("\n    --- --- --- --- --- --- --- ---");
+        }
+
+        public static void ViewBoard(Board board)
+        {
+            ChessTitle();
             for (int i = 0; i < board.Lines; i++)
             {
-                Console.Write($" {8 - i} | ");
+                Console.Write($" {8 - i} |");
                 for (int j = 0; j < board.Columns; j++)
                 {
-                    if (board.Piece(i, j) == null)
-                    {
-                        Console.Write("- | ");
 
-                    }
-                    else
-                    {
-                        PrintPiece(board.Piece(i, j));
-                        Console.Write(" | ");
-                    }
-
+                    PrintPiece(board.Piece(i, j));
+                    
 
                 }
                 Console.WriteLine("");
@@ -42,27 +71,90 @@ namespace ChessGame
 
         }
 
+
+        public static void ViewBoard(Board board, bool[,] possibleMoves)
+        {
+
+            ChessTitle();
+            ConsoleColor backgroundOriginal = Console.BackgroundColor;
+            ConsoleColor backgroundNew = ConsoleColor.DarkGray;
+
+            for (int i = 0; i < board.Lines; i++)
+            {
+                Console.Write($" {8 - i} |");
+                for (int j = 0; j < board.Columns; j++)
+                {
+                    if (possibleMoves[i, j])
+                    {
+                        Console.BackgroundColor = backgroundNew;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = backgroundOriginal;
+                    }
+                   
+                    PrintPiece(board.Piece(i, j));
+                    Console.BackgroundColor = backgroundOriginal;
+
+
+
+                }
+                Console.WriteLine("");
+
+                Console.WriteLine("    --- --- --- --- --- --- --- ---");
+
+            }
+            Console.WriteLine("    -a- -b- -c- -d- -e- -f- -g- -h-");
+            Console.BackgroundColor = backgroundOriginal;
+
+
+
+        }
+
         public static ChessPosition ReadChessPosition()
         {
             string position = Console.ReadLine();
             char column = position[0];
             int line = int.Parse(position[1] + "");
 
+           
+
             return new ChessPosition(column, line);
         }
 
+
+
         public static void PrintPiece(Piece piece)
         {
-            if(piece.Color == Color.White)
+            //ConsoleColor backgroundOriginal = Console.BackgroundColor;
+            //ConsoleColor backgroundNew = ConsoleColor.DarkGray;
+
+            if (piece == null)
             {
-                Console.Write(piece);
+                //Console.BackgroundColor = backgroundNew;
+                Console.Write(" - ");
+                //Console.BackgroundColor = backgroundOriginal;
+                Console.Write("|");
             }
             else
             {
-                ConsoleColor aux = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(piece);
-                Console.ForegroundColor = aux;
+                if (piece.Color == Color.White)
+                {
+                    Console.Write(" ");
+                    Console.Write(piece);
+                    Console.Write(" ");
+                }
+                else
+                {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(" ");
+                    Console.Write(piece);
+                    Console.Write(" ");
+                    Console.ForegroundColor = aux;
+                }
+                Console.Write("|");
+
             }
         }
     }

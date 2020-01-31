@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 namespace board
 {
@@ -36,7 +34,7 @@ namespace board
 
         public void PutPiece(Piece p, Position after)
         {
-            if (    PieceIn(after))
+            if (PieceIn(after))
             {
                 throw new BoardException("Já existe uma peça nesta posição");
             }
@@ -61,7 +59,7 @@ namespace board
 
         public bool ValidPosition(Position after)
         {
-            if(after.Line<0 || after.Column<0 || after.Line>Lines || after.Column > Columns)
+            if(after.Line<0 || after.Column<0 || after.Line>=Lines || after.Column >=Columns)
             {
                 return false;
             }

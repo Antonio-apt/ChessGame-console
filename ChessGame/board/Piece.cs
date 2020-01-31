@@ -8,7 +8,7 @@ namespace board
         public  int Moves{ get; set; }
         public Board Board { get; set; }
 
-        public Piece(Color color, Board board)
+        public Piece(Board board, Color color)
         {
             Position = null;
             Color = color;
@@ -20,5 +20,29 @@ namespace board
         {
             Moves++;
         }
+
+        public bool PossibleMovesValidate()
+        {
+            bool[,] mat = PossibleMoves();
+            for(int i=0; i < Board.Lines; i++)
+            {
+                for(int j=0; j < Board.Columns; j++)
+                {
+                    if (mat[i, j])
+                    {
+                        return true;    
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool CanMoveFor(Position after)
+        {
+            return PossibleMoves()[after.Line, after.Column];
+        }
+
+        public abstract bool[,] PossibleMoves();
+        
     }
 }

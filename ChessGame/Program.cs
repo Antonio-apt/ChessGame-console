@@ -8,30 +8,45 @@ namespace ChessGame
     {
         static void Main(string[] args)
         {
-            try
-            {
-                ChessRound chessRound = new ChessRound();
 
-                while (!chessRound.finished)
+            ChessRound chessRound = new ChessRound();
+
+            while (!chessRound.finished)
+            {
+                try
                 {
                     Console.Clear();
-                    View.ViewBoard(chessRound.board);
+                    View.ViewGame(chessRound);
 
-                    Console.Write("Peça de origem: ");
+                    Console.Write(" Peça de origem: ");
+
                     Position origin = View.ReadChessPosition().ToPosition();
+                    chessRound.ValidOriginPosition(origin);
 
-                    Console.Write("Peça de origem: ");
+
+
+                    bool[,] possibleMoves = chessRound.board.Piece(origin).PossibleMoves();
+                    Console.Clear();
+                    View.ViewBoard(chessRound.board, possibleMoves);
+
+                    Console.WriteLine(" -------------------------------");
+                    Console.Write(" Peça de destino: ");
                     Position destiny = View.ReadChessPosition().ToPosition();
+                    chessRound.ValidDestinyPosition(origin, destiny);
 
-                    chessRound.ExecuteMove(origin, destiny);
+                    chessRound.PlayRound(origin, destiny);
+                }
+                catch (BoardException e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.ReadLine();
                 }
 
+                
+
 
             }
-            catch(BoardException e)
-            {
-                Console.WriteLine(e.Message);
-            }
+
         }
     }
 }
