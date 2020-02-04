@@ -16,6 +16,10 @@ namespace ChessGame
             
             Console.WriteLine($" Turno: {chessRound.round}");
             Console.WriteLine($" Turno de : {chessRound.player}");
+            if (chessRound.check)
+            {
+                Console.WriteLine(" XEQUE!");
+            }
         }
 
         public static void PrintCapturedPieces(ChessRound round)
@@ -24,7 +28,10 @@ namespace ChessGame
             Console.WriteLine(" Peças capturadas");
             Console.Write(" Brancas: ");
             PrintSet(round.CapturedPieces(Color.White));
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("\n Pretas: ");
+            Console.ForegroundColor = aux;
             PrintSet(round.CapturedPieces(Color.Black));
             Console.WriteLine(" \n -------------------------------");
         }
