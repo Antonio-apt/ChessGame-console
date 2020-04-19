@@ -33,14 +33,14 @@ namespace ChessGame.Chess
             while (Board.ValidPosition(after) && CanMove(after))
             {
                 mat[after.Line, after.Column] = true;
-                if(Board.Piece(after) != null && Board.Piece(after).Color != Color)
+                if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
                 {
                     break;
                 }
 
                 after.Line = after.Line - 1;
             }
-            
+
             //Direita
             after.DefineValues(Position.Line, Position.Column + 1);
             while (Board.ValidPosition(after) && CanMove(after))
@@ -49,7 +49,7 @@ namespace ChessGame.Chess
                 if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
                 {
                     break;
-                }   
+                }
 
                 after.Column = after.Column + 1;
             }

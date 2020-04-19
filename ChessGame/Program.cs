@@ -38,14 +38,16 @@ namespace ChessGame
                 }
                 catch (BoardException e)
                 {
+                    ConsoleColor aux = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine(e.Message);
+                    Console.ForegroundColor = aux;
                     Console.ReadLine();
                 }
 
-                
-
-
             }
+            Console.Clear();
+            View.ViewGame(chessRound);
 
         }
     }

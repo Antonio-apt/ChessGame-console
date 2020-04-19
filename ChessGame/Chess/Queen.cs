@@ -31,51 +31,120 @@ namespace ChessGame.Chess
 
             //Acima
             after.DefineValues(Position.Line - 1, Position.Column);
-            if (Board.ValidPosition(after) && CanMove(after))
+            while (Board.ValidPosition(after) && CanMove(after))
             {
                 mat[after.Line, after.Column] = true;
+                if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
+                {
+                    break;
+                }
+
+                after.Line = after.Line - 1;
             }
-            //ne
-            after.DefineValues(Position.Line - 1, Position.Column + 1);
-            if (Board.ValidPosition(after) && CanMove(after))
-            {
-                mat[after.Line, after.Column] = true;
-            }
+
             //Direita
             after.DefineValues(Position.Line, Position.Column + 1);
-            if (Board.ValidPosition(after) && CanMove(after))
+            while (Board.ValidPosition(after) && CanMove(after))
             {
                 mat[after.Line, after.Column] = true;
+                if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
+                {
+                    break;
+                }
+
+                after.Column = after.Column + 1;
             }
-            //se
-            after.DefineValues(Position.Line + 1, Position.Column + 1);
-            if (Board.ValidPosition(after) && CanMove(after))
-            {
-                mat[after.Line, after.Column] = true;
-            }
+
             //Abaixo
             after.DefineValues(Position.Line + 1, Position.Column);
-            if (Board.ValidPosition(after) && CanMove(after))
+            while (Board.ValidPosition(after) && CanMove(after))
             {
                 mat[after.Line, after.Column] = true;
+                if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
+                {
+                    break;
+                }
+
+                after.Line = after.Line + 1;
             }
-            //so
-            after.DefineValues(Position.Line + 1, Position.Column - 1);
-            if (Board.ValidPosition(after) && CanMove(after))
-            {
-                mat[after.Line, after.Column] = true;
-            }
+
             //Esquerda
             after.DefineValues(Position.Line, Position.Column - 1);
-            if (Board.ValidPosition(after) && CanMove(after))
+            while (Board.ValidPosition(after) && CanMove(after))
             {
                 mat[after.Line, after.Column] = true;
+                if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
+                {
+                    break;
+                }
+
+                after.Column = after.Column - 1;
             }
+
+            //ne
+            after.DefineValues(Position.Line - 1, Position.Column + 1);
+
+            while (Board.ValidPosition(after) && CanMove(after))
+            {
+                mat[after.Line, after.Column] = true;
+                if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
+                {
+                    break;
+                }
+
+                //after.DefineValues(Position.Line - 1, Position.Column + 1);
+                after.Line = after.Line - 1;
+                after.Column = after.Column + 1;
+            }
+
+            //se
+            after.DefineValues(Position.Line + 1, Position.Column + 1);
+
+            while (Board.ValidPosition(after) && CanMove(after))
+            {
+                mat[after.Line, after.Column] = true;
+                if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
+                {
+                    break;
+                }
+
+                //after.DefineValues(Position.Line + 1, Position.Column + 1);
+                after.Line = after.Line + 1;
+                after.Column = after.Column + 1;
+
+            }
+
+            //so
+            after.DefineValues(Position.Line + 1, Position.Column - 1);
+            while (Board.ValidPosition(after) && CanMove(after))
+            {
+                mat[after.Line, after.Column] = true;
+                if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
+                {
+                    break;
+                }
+
+                //after.DefineValues(Position.Line + 1, Position.Column - 1);
+                after.Line = after.Line + 1;
+                after.Column = after.Column - 1;
+            }
+
             //no
             after.DefineValues(Position.Line - 1, Position.Column - 1);
-            if (Board.ValidPosition(after) && CanMove(after))
+
+            while (Board.ValidPosition(after) && CanMove(after))
             {
                 mat[after.Line, after.Column] = true;
+                if (Board.Piece(after) != null && Board.Piece(after).Color != Color)
+                {
+                    break;
+                }
+
+
+                //after.DefineValues(Position.Line - 1, Position.Column - 1);
+                after.Line = after.Line - 1;
+                after.Column = after.Column - 1;
+
             }
 
             return mat;

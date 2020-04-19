@@ -18,11 +18,19 @@ namespace board
 
         public Piece Piece(int line, int column)
         {
+            if(line> Lines || column > Columns)
+            {
+                throw new BoardException(" Valores invalidos");
+            }
             return Pieces[line, column];
         }
 
         public Piece Piece(Position after)
         {
+            if (after.Line > Lines || after.Column > Columns || after.Line < 0 || after.Column < 0)
+            {
+                throw new BoardException(" Valores invalidos!!!");
+            }
             return Pieces[after.Line, after.Column];
         }
 

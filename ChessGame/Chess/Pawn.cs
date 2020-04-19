@@ -8,16 +8,30 @@ namespace ChessGame.Chess
         {
 
         }
+        
+
 
         public override string ToString()
         {
             return "P";
         }
 
+
         public bool CanMove(Position after)
         {
             Piece p = Board.Piece(after);
             return p == null || p.Color != Color;
+        }
+
+        private bool HasEnemy(Position after)
+        {
+            Piece p = Board.Piece(after);
+            return p != null && p.Color != Color;
+        }
+
+        private bool Free(Position after)
+        {
+            return Board.Piece(after) == null;
         }
 
 
@@ -28,53 +42,57 @@ namespace ChessGame.Chess
 
             Position after = new Position(0, 0);
 
-            //Acima
-            after.DefineValues(Position.Line - 1, Position.Column);
-            if (Board.ValidPosition(after) && CanMove(after))
+            if(Color == Color.White)
             {
-                mat[after.Line, after.Column] = true;
+                after.DefineValues(Position.Line - 1, Position.Column);
+                if (Board.ValidPosition(after) && Free(after))
+                {
+                    mat[after.Line, after.Column] = true;
+                }
+
+                after.DefineValues(Position.Line - 2, Position.Column);
+                if (Board.ValidPosition(after) && Free(after) && Moves ==0)
+                {
+                    mat[after.Line, after.Column] = true;
+                }
+
+                after.DefineValues(Position.Line - 1, Position.Column - 1);
+                if (Board.ValidPosition(after)  && HasEnemy(after))
+                {
+                    mat[after.Line, after.Column] = true;
+                }
+
+                after.DefineValues(Position.Line - 1, Position.Column + 1);
+                if (Board.ValidPosition(after)  && HasEnemy(after))
+                {
+                    mat[after.Line, after.Column] = true;
+                }
             }
-            //ne
-            after.DefineValues(Position.Line - 1, Position.Column + 1);
-            if (Board.ValidPosition(after) && CanMove(after))
+            else
             {
-                mat[after.Line, after.Column] = true;
-            }
-            //Direita
-            after.DefineValues(Position.Line, Position.Column + 1);
-            if (Board.ValidPosition(after) && CanMove(after))
-            {
-                mat[after.Line, after.Column] = true;
-            }
-            //se
-            after.DefineValues(Position.Line + 1, Position.Column + 1);
-            if (Board.ValidPosition(after) && CanMove(after))
-            {
-                mat[after.Line, after.Column] = true;
-            }
-            //Abaixo
-            after.DefineValues(Position.Line + 1, Position.Column);
-            if (Board.ValidPosition(after) && CanMove(after))
-            {
-                mat[after.Line, after.Column] = true;
-            }
-            //so
-            after.DefineValues(Position.Line + 1, Position.Column - 1);
-            if (Board.ValidPosition(after) && CanMove(after))
-            {
-                mat[after.Line, after.Column] = true;
-            }
-            //Esquerda
-            after.DefineValues(Position.Line, Position.Column - 1);
-            if (Board.ValidPosition(after) && CanMove(after))
-            {
-                mat[after.Line, after.Column] = true;
-            }
-            //no
-            after.DefineValues(Position.Line - 1, Position.Column - 1);
-            if (Board.ValidPosition(after) && CanMove(after))
-            {
-                mat[after.Line, after.Column] = true;
+                after.DefineValues(Position.Line + 1, Position.Column);
+                if (Board.ValidPosition(after) && Free(after))
+                {
+                    mat[after.Line, after.Column] = true;
+                }
+
+                after.DefineValues(Position.Line + 2, Position.Column);
+                if (Board.ValidPosition(after) && Free(after) && Moves == 0)
+                {
+                    mat[after.Line, after.Column] = true;
+                }
+
+                after.DefineValues(Position.Line + 1, Position.Column + 1);
+                if (Board.ValidPosition(after)  && HasEnemy(after))
+                {
+                    mat[after.Line, after.Column] = true;
+                }
+
+                after.DefineValues(Position.Line + 1, Position.Column - 1);
+                if (Board.ValidPosition(after)  && HasEnemy(after))
+                {
+                    mat[after.Line, after.Column] = true;
+                }
             }
 
             return mat;
